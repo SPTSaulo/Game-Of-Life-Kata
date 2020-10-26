@@ -33,10 +33,21 @@ namespace GameOfLife
             {
                 for (int j = 0; j < neighboursAlivePerCell.GetLength(1); j++)
                 {
-                    board[i,j] = (neighboursAlivePerCell[i, j] == 2 || neighboursAlivePerCell[i,j] == 3) && board[i, j] == 1 ? 1 : 0;
-                    board[i, j] = (neighboursAlivePerCell[i, j] == 3 && board[i, j] == 0) ? 1 : board[i,j];
+                    if (board[i, j] == 1) UpdateLiveCell(neighboursAlivePerCell[i,j], board, i, j);
+                    if (board[i, j] == 0) UpdateDieCell(neighboursAlivePerCell[i, j], board, i, j);
+                    
                 }
             }
+        }
+
+        private static void UpdateDieCell(int amountOfNeighbours, int[,] board, int row, int column)
+        { 
+            board[row, column] = amountOfNeighbours == 3 ? 1 : board[row,column];
+        }
+
+        private static void UpdateLiveCell(int amountOfLiveNeighbours, int[,] board, int row, int column)
+        {
+            board[row, column] = amountOfLiveNeighbours == 2 || amountOfLiveNeighbours == 3 ? 1 : 0;
         }
 
         private static int CountLivingNeigbours(int i, int j, int[,] board)
@@ -44,13 +55,26 @@ namespace GameOfLife
             int count = 0;
             count += CountLeftLivingNeighbours(i, j, board);
             count += CountRightLivingNeigbours(i, j, board);
-            //count += CountEndLivingNeighbours(i, j, board);
             count += CountTopLeftLivingNeighbours(i, j, board);
             count += CountTopRightLivingNeighbours(i, j, board);
             count += CountUnderLivingNeighbours(i, j, board);
             count += CountUpLivingNeighbours(i, j, board);
             count += CountLowerRightNeighBours(i, j, board);
+            count += CountLowerLeftNeighBours(i, j, board);
             return count;
+        }
+
+        private static int CountLowerLeftNeighBours(int i, int j, int[,] board)
+        {
+            try
+            {
+                if (board[i+1,j-1] == 1) return 1;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+            return 0;
         }
 
         private static int CountLowerRightNeighBours(int i, int j, int[,] board)
@@ -146,16 +170,6 @@ namespace GameOfLife
             }
 
             return 0;
-        }
-
-        private static int CountEndLivingNeighbours(int i, int j, int[,] board)
-        {
-            int count = 0;
-            if (j == board.GetLength(1) - 1 && board.GetLength(1) > 1)
-            {
-                if (board[i, j - 1] == 1) count++;
-            }
-            return count;
         }
     }
 }
