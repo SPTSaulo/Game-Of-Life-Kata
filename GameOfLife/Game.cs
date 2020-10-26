@@ -15,7 +15,7 @@ namespace GameOfLife
             return board;
         }
 
-        private static int[,] UpdateNeighboursAlivePerCell(int[,] neighboursAlivePerCell, int[,] board)
+        private static void UpdateNeighboursAlivePerCell(int[,] neighboursAlivePerCell, int[,] board)
         {
             for (int i = 0; i < board.GetLength(0); i++)
             {
@@ -24,7 +24,6 @@ namespace GameOfLife
                     neighboursAlivePerCell[i, j] = CountLivingNeigbours(i, j, board);
                 }
             }
-            return neighboursAlivePerCell;
         }
 
         private static void UpdateBoard(int[,] neighboursAlivePerCell, int[,] board)
@@ -35,7 +34,6 @@ namespace GameOfLife
                 {
                     if (board[i, j] == 1) UpdateLiveCell(neighboursAlivePerCell[i,j], board, i, j);
                     if (board[i, j] == 0) UpdateDieCell(neighboursAlivePerCell[i, j], board, i, j);
-                    
                 }
             }
         }
@@ -50,25 +48,25 @@ namespace GameOfLife
             board[row, column] = amountOfLiveNeighbours == 2 || amountOfLiveNeighbours == 3 ? 1 : 0;
         }
 
-        private static int CountLivingNeigbours(int i, int j, int[,] board)
+        private static int CountLivingNeigbours(int row, int column, int[,] board)
         {
             int count = 0;
-            count += CountLeftLivingNeighbours(i, j, board);
-            count += CountRightLivingNeigbours(i, j, board);
-            count += CountTopLeftLivingNeighbours(i, j, board);
-            count += CountTopRightLivingNeighbours(i, j, board);
-            count += CountUnderLivingNeighbours(i, j, board);
-            count += CountUpLivingNeighbours(i, j, board);
-            count += CountLowerRightNeighBours(i, j, board);
-            count += CountLowerLeftNeighBours(i, j, board);
+            count += CountLeftLivingNeighbours(row, column, board);
+            count += CountRightLivingNeigbours(row, column, board);
+            count += CountTopLeftLivingNeighbours(row, column, board);
+            count += CountTopRightLivingNeighbours(row, column, board);
+            count += CountUnderLivingNeighbours(row, column, board);
+            count += CountUpLivingNeighbours(row, column, board);
+            count += CountLowerRightNeighBours(row, column, board);
+            count += CountLowerLeftNeighBours(row, column, board);
             return count;
         }
 
-        private static int CountLowerLeftNeighBours(int i, int j, int[,] board)
+        private static int CountLowerLeftNeighBours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i+1,j-1] == 1) return 1;
+                if (board[row+1,column-1] == 1) return 1;
             }
             catch (Exception e)
             {
@@ -77,11 +75,11 @@ namespace GameOfLife
             return 0;
         }
 
-        private static int CountLowerRightNeighBours(int i, int j, int[,] board)
+        private static int CountLowerRightNeighBours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i + 1, j + 1] == 1) return 1;
+                if (board[row + 1, column + 1] == 1) return 1;
             }
             catch (Exception e)
             {
@@ -90,11 +88,11 @@ namespace GameOfLife
             return 0;
         }
 
-        private static int CountUpLivingNeighbours(int i, int j, int[,] board)
+        private static int CountUpLivingNeighbours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i - 1, j] == 1) return 1;
+                if (board[row - 1, column] == 1) return 1;
             }
             catch (Exception e)
             {
@@ -103,25 +101,11 @@ namespace GameOfLife
             return 0;
         }
 
-        private static int CountUnderLivingNeighbours(int i, int j, int[,] board)
+        private static int CountUnderLivingNeighbours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i + 1, j] == 1) return 1;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-
-            return 0;
-        }
-
-        private static int CountTopRightLivingNeighbours(int i, int j, int[,] board)
-        {
-            try
-            {
-                if (board[i - 1, j + 1] == 1) return 1;
+                if (board[row + 1, column] == 1) return 1;
             }
             catch (Exception e)
             {
@@ -131,11 +115,11 @@ namespace GameOfLife
             return 0;
         }
 
-        private static int CountTopLeftLivingNeighbours(int i, int j, int[,] board)
+        private static int CountTopRightLivingNeighbours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i - 1, j - 1] == 1) return 1;
+                if (board[row - 1, column + 1] == 1) return 1;
             }
             catch (Exception e)
             {
@@ -145,11 +129,25 @@ namespace GameOfLife
             return 0;
         }
 
-        private static int CountLeftLivingNeighbours(int i, int j, int[,] board)
+        private static int CountTopLeftLivingNeighbours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i, j - 1] == 1) return 1;
+                if (board[row - 1, column - 1] == 1) return 1;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+
+            return 0;
+        }
+
+        private static int CountLeftLivingNeighbours(int row, int column, int[,] board)
+        {
+            try
+            {
+                if (board[row, column - 1] == 1) return 1;
             }
             catch (Exception e)
             {
@@ -158,11 +156,11 @@ namespace GameOfLife
             return 0;
         }
 
-        private static int CountRightLivingNeigbours(int i, int j, int[,] board)
+        private static int CountRightLivingNeigbours(int row, int column, int[,] board)
         {
             try
             {
-                if (board[i, j + 1] == 1) return 1;
+                if (board[row, column + 1] == 1) return 1;
             }
             catch (Exception e)
             {

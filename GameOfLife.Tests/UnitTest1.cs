@@ -9,7 +9,7 @@ namespace Tests
     {
         
         [Test]
-        public void Generate_monodimensional_board_where_one_live_cell_die()
+        public void Generate_1_x_1_board_where_one_live_cell_die()
         {
             int[,] board = new int [,] {{1}};
 
@@ -21,7 +21,7 @@ namespace Tests
 
         
         [Test]
-        public void Generate_monodimensional_board_where_live_cell_die_by_underpopulation()
+        public void Generate_1_x_2_board_where_live_cell_die_by_underpopulation()
         {
             int[,] board = new int[,] {{0, 1}};
 
@@ -32,7 +32,7 @@ namespace Tests
         }
         
         [Test]
-        public void Generate_monodimensional_board_with_three_live_cell_where_1_cell_survive()
+        public void Generate_1_x_3_board_with_three_live_cell_where_1_cell_survive()
         {
             int [,] board = new int[,] {{1, 1, 1}};
 
@@ -43,7 +43,7 @@ namespace Tests
         }
         
         [Test]
-        public void Generate_monodimensional_board_with_one_live_cell_between_two_die_cell_where_live_cell_die_by_underpopulation()
+        public void Generate_1_x_3_board_with_one_live_cell_between_two_die_cell_where_live_cell_die_by_underpopulation()
         {
             int [,] board = new int[,] {{0, 1, 0}};
 
@@ -54,7 +54,7 @@ namespace Tests
         }
         
         [Test]
-        public void Generate_bidimensional_board_where_die_cell_revive()
+        public void Generate_2_x_2_board_where_die_cell_revive()
         {
             int[,] board = new int[,] {{1,1}, {0,1}};
 
@@ -65,7 +65,7 @@ namespace Tests
         }
         
         [Test]
-        public void Generate_bidimensional_board_with_four_live_cell_where_all_live()
+        public void Generate_2_x_2_board_with_four_live_cell_where_all_live()
         {
             int[,] board = new int[,] {{1, 1}, {1, 1}};
 
@@ -76,7 +76,7 @@ namespace Tests
         }
 
         [Test]
-        public void Generate_bidimensional_board_where_live_cell_die_by_overcrowding()
+        public void Generate_3_x_3_board_where_live_cell_die_by_overcrowding()
         {
             int [,] board = new int[,] {{0,1,0}, {1,1,1}, {0,1,0}};
 
