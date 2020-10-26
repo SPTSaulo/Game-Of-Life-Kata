@@ -13,10 +13,10 @@ namespace Tests
         {
             int[,] board = new int [,] {{1}};
 
-            int[,] generateBoard = Game.GenerateNextGenerationBoard(board);
+            int[,] generatedBoard = Game.GenerateNextGenerationBoard(board);
 
             int[,] expectedBoard = new int[,] {{0}};
-            generateBoard.Should().BeEquivalentTo(expectedBoard);
+            generatedBoard.Should().BeEquivalentTo(expectedBoard);
         }
 
         
@@ -25,10 +25,10 @@ namespace Tests
         {
             int[,] board = new int[,] {{0, 1}};
 
-            int[,] generateBoard = Game.GenerateNextGenerationBoard(board);
+            int[,] generatedBoard = Game.GenerateNextGenerationBoard(board);
 
             int[,] expectedBoard = new int[,] {{0, 0}};
-            generateBoard.Should().BeEquivalentTo(expectedBoard);
+            generatedBoard.Should().BeEquivalentTo(expectedBoard);
         }
         
         [Test]
@@ -36,10 +36,10 @@ namespace Tests
         {
             int [,] board = new int[,] {{1, 1, 1}};
 
-            int[,] generateBoard = Game.GenerateNextGenerationBoard(board);
+            int[,] generatedBoard = Game.GenerateNextGenerationBoard(board);
 
             int[,] expectedBoard = new int[,] {{0, 1, 0}};
-            generateBoard.Should().BeEquivalentTo(expectedBoard);
+            generatedBoard.Should().BeEquivalentTo(expectedBoard);
         }
         
         [Test]
@@ -47,11 +47,23 @@ namespace Tests
         {
             int [,] board = new int[,] {{0, 1, 0}};
 
-            int[,] generateBoard = Game.GenerateNextGenerationBoard(board);
+            int[,] generatedBoard = Game.GenerateNextGenerationBoard(board);
 
             int[,] expectedBoard = new int[,] {{0, 0, 0}};
-            generateBoard.Should().BeEquivalentTo(expectedBoard);
+            generatedBoard.Should().BeEquivalentTo(expectedBoard);
         }
         
+        [Test]
+        public void Generate_bidimensional_board_with_one_life_cell_and_one_die_cell()
+        {
+            int[,] board = new int[,] {{1,1}, {0,1}};
+
+            int[,] generatedBoard = Game.GenerateNextGenerationBoard(board);
+
+            int [,] expectedBoard = new int[,] {{1,1},{1,1}};
+            generatedBoard.Should().BeEquivalentTo(expectedBoard);
+        }
+
+
     }
 }
